@@ -21,5 +21,7 @@ urlpatterns = [
 	path('app_two/', include([
 		path('', views.index, name='index'),
 		path('help/', views.help, name='help'),
+        path('user/',views.user, name='user'),
+        # path('signup/',views.form_user_view, name='signup')
 	]))
 ]
