@@ -1,12 +1,13 @@
 from django.db import models
 from django.utils.text import slugify
+from django.urls import reverse
+from django.conf import settings
 
-# Create your models here.
 import misaka
 
-from.django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model
 User = get_user_model()
-from django import templat
+from django import template
 register = template.Library()
 
 
@@ -28,12 +29,12 @@ class Group(models.Model):
     def get_absolute_url(self):
         return reverse('groups:single',kwargs={'slug':self.slug})
 
-    def Meta:
+    class Meta:
         ordering = ['name']
 
 class GroupMember(models.Model):
-    group = models.ForeginKey(Group,related_name='memberships', on_delete=CASCADE)
-    user = models.ForeginKey(User,related_name='user_group',  on_delete=CASCADE)
+    group = models.ForeignKey(Group,related_name='memberships', on_delete=models.CASCADE)
+    user = models.ForeignKey(User,related_name='user_group',  on_delete=models.CASCADE)
 
     def __str__(self):
         return self.user.username
